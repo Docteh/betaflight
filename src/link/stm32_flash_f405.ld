@@ -37,9 +37,6 @@ MEMORY
 
 __unified_config_start = ORIGIN(UNIFIED_CONFIG);
 __unified_config_end = ORIGIN(UNIFIED_CONFIG) + LENGTH(UNIFIED_CONFIG);
-SECTIONS {
-    .unified_config : {  KEEP(*target/unified_config_marker.o(.rodata));  } > UNIFIED_CONFIG
-}
 
 REGION_ALIAS("STACKRAM", CCM)
 REGION_ALIAS("FASTRAM", CCM)

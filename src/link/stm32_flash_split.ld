@@ -116,6 +116,17 @@ SECTIONS
     PROVIDE_HIDDEN (__pg_resetdata_end = .);
   } >FLASH
 
+  /* Padding for the .unified_config section so we can grab it out of .hex */
+  .unified_padding :
+  {
+    . = ALIGN(16);
+  } >FLASH
+  .unified_config :
+  {
+    __unified_config_marker = .;
+    KEEP(*target/unified_config_marker.o(.data));
+  } >FLASH
+
   /* used by the startup to initialize data */
   _sidata = LOADADDR(.data);
 
