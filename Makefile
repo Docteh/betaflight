@@ -352,8 +352,9 @@ $(TARGET_HEX): $(TARGET_BIN)
 endif
 
 $(TARGET_ELF): $(TARGET_OBJS) $(LD_SCRIPT)
+	$(V1) $(CROSS_CC) $(ARCH_FLAGS) -Isrc/main -c src/main/target/unified_config_marker.c -o obj/main/$(TARGET)/target/unified_config_marker.o
 	@echo "Linking $(TARGET)" "$(STDOUT)"
-	$(V1) $(CROSS_CC) -o $@ $(filter-out %.ld,$^) $(LD_FLAGS)
+	$(V1) $(CROSS_CC) -o $@ obj/main/$(TARGET)/target/unified_config_marker.o $(filter-out %.ld,$^) $(LD_FLAGS)
 	$(V1) $(SIZE) $(TARGET_ELF)
 
 # Compile

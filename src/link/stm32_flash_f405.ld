@@ -22,9 +22,10 @@ ENTRY(Reset_Handler)
 /* Specify the memory areas */
 MEMORY
 {
-    FLASH (rx)        : ORIGIN = 0x08000000, LENGTH = 16K
+    FLASH (rx)        : ORIGIN = 0x08000000, LENGTH = 12K
+    UNIFIED_CONFIG (r): ORIGIN = 0x08003000, LENGTH = 4K
     FLASH_CONFIG (r)  : ORIGIN = 0x08004000, LENGTH = 16K
-    FLASH1 (rx)       : ORIGIN = 0x08008000, LENGTH = 992K
+    FLASH1 (rx)       : ORIGIN = 0x08009000, LENGTH = 988K
 
     SYSTEM_MEMORY (rx): ORIGIN = 0x1FFF0000, LENGTH = 29K
 
@@ -32,6 +33,12 @@ MEMORY
     CCM (rwx)         : ORIGIN = 0x10000000, LENGTH = 64K
     BACKUP_SRAM (rwx) : ORIGIN = 0x40024000, LENGTH = 4K
     MEMORY_B1 (rx)    : ORIGIN = 0x60000000, LENGTH = 0K
+}
+
+__unified_config_start = ORIGIN(UNIFIED_CONFIG);
+__unified_config_end = ORIGIN(UNIFIED_CONFIG) + LENGTH(UNIFIED_CONFIG);
+SECTIONS {
+    .unified_config : {  KEEP(*target/unified_config_marker.o(.rodata));  } > UNIFIED_CONFIG
 }
 
 REGION_ALIAS("STACKRAM", CCM)
